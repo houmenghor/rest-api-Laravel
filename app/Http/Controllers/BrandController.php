@@ -124,13 +124,18 @@ class BrandController extends Controller
         // Handle the image upload if a new one is provided
         $imgpath = $brand->image;  // Keep the old image initially
         if ($request->hasFile('image')) {
-            
+
             if ($brand->image) {
                 Storage::disk('public')->delete($brand->image);
             }
 
             // Store the new image
             $imgpath = $request->file('image')->store('brands', 'public');
+        }
+
+        if ($request->image_remove) {
+            Storage::disk('public')->delete($imgpath);
+            $imgpath = null;
         }
 
         // Update the brand record

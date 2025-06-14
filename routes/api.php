@@ -11,10 +11,6 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Category;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,25 +25,10 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-// get
-// Route::get('/role',function(){
-//     return "get data";
-// });
-// post
-// Route::post("/role",function(){
-//     return "create ";
-// });
-// update
-// Route::put("/role",function(){
-//     return "update ";
-// });
-// delete
-// Route::delete("/role",function(){
-//     return "delete ";
-// });
+Route::apiResource('roles',RoleController::class);
 Route::apiResource("brands",BrandController::class);
 Route::middleware(['auth:api'])->group(function(){
-Route::apiResource('roles',RoleController::class);
+
 Route::apiResource('provinces',ProvinceController::class);
 Route::apiResource('suppliers',SupplierController::class);
 Route::apiResource("payment-methods",PaymentMethodController::class);
@@ -60,13 +41,3 @@ Route::apiResource("auths",AuthController::class);
 });
 
 Route::post("auths/login",[AuthController::class,'login']);
-// Route::post('/auths/login', [AuthController::class, 'login'])->name('auths.login');
-// Route::post('/auth/login', [AuthController::class, 'login'])->withoutMiddleware([VerifyCsrfToken::class]);
-
-
-
-// Route::get("/categories",[Category::class,'index']);
-
-
-
-// });

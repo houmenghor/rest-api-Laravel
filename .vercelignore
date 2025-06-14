@@ -1,0 +1,13 @@
+node_modules/
+public/hot
+storage/
+.env
+.git/
+.gitignore
+.editorconfig
+.idea/
+vendor/
+docker/
+Homestead/
+npm-debug.log
+yarn-error.log

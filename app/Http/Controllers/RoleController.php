@@ -3,6 +3,7 @@
 
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Role;
 use Illuminate\Http\Client\Response;
@@ -18,7 +19,11 @@ class RoleController extends Controller
     {
         //
         $data = Role::all();
-        return response()->json($data,200);
+        return response()->json([
+
+            "list" => $data
+
+        ],200);
     }
 
     /**
@@ -28,13 +33,13 @@ class RoleController extends Controller
     {
         //body json
         $add_data = new Role();
-        $add_data->name = $request->input('name');//name = $_POST["name"];
+        $add_data->name = $request->input('name'); //name = $_POST["name"];
         $add_data->description = $request->input('description');
         $add_data->status = $request->input('status');
         $add_data->save(); //insert into table add_datas
         return response()->json([
-            "data"=>$add_data,
-            "message"=>"Insert successfully!"
+            "data" => $add_data,
+            "message" => "Insert successfully!"
         ]);
     }
 
@@ -45,7 +50,7 @@ class RoleController extends Controller
     {
         //
         return response()->json([
-            "data"=>Role::find($id)
+            "list" => Role::find($id)
         ]);
     }
 
@@ -56,20 +61,20 @@ class RoleController extends Controller
     {
         //
         $role = Role::find($id);
-        if(!$role){
+        if (!$role) {
             return response()->json([
-                "error"=>[
-                    "update"=>"Error 404"
+                "error" => [
+                    "update" => "Error 404"
                 ]
             ]);
-        }else{
-            $role->name = $request->input('name');//name = $_POST["name"];
+        } else {
+            $role->name = $request->input('name'); //name = $_POST["name"];
             $role->description = $request->input('description');
             $role->status = $request->input('status');
             $role->update();
             return response()->json([
-                "data"=>$role,
-                "message"=>"Update successfully!"
+                "data" => $role,
+                "message" => "Update successfully!"
             ]);
         }
     }
@@ -81,16 +86,16 @@ class RoleController extends Controller
     {
         //
         $role = Role::find($id);
-        if(!$role){
+        if (!$role) {
             return response()->json([
-                "error"=>[
-                    "delete"=>"Error 404"
+                "error" => [
+                    "delete" => "Error 404"
                 ]
             ]);
-        }else{
+        } else {
             $role->delete();
             return response()->json([
-                "message"=>"delete successfully!"
+                "message" => "delete successfully!"
             ]);
         }
     }

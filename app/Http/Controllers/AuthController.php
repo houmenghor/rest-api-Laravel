@@ -10,7 +10,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    public function login(Request $request) 
+    public function login(Request $request)
      {
         $request->validate([
             'email' => 'required|string|email|regex:/^[\w\.-]+@[\w\.-]+\.\w{2,4}$/',
@@ -24,6 +24,7 @@ class AuthController extends Controller
         }
         return response()->json([
             'access_token' => $token,
+            "permissions" => ["create", "update", "delete"],
             'user' => JWTAuth::user()->load('profile'),
         ]);
     }
@@ -151,7 +152,7 @@ class AuthController extends Controller
                     "message" => "User not found!"
                 ], 404);
             }
-    
+
             // Delete the profile image if it exists
             if ($user->profile && $user->profile->image) {
                 Storage::disk('public')->delete($user->profile->image);

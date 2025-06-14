@@ -1,33 +1,44 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/index.php",
-      "use": "@vercel/php",
-      "config": {
-        "maxLambdaSize": "25mb",
-        "runtime": "php-8.1"
-      }
+    "version": 2,
+    "framework": null,
+    "functions": {
+        "api/index.php": { "runtime": "vercel-php@0.7.3" }
+    },
+    "routes": [
+        {
+            "src": "/build/(.*)",
+            "dest": "/build/$1"
+        },
+        {
+            "src": "/(.*\\.(?:css|js|png|jpg|jpeg|gif|svg|ico|ttf|woff|woff2|eot|otf|webp|avif|txt))$",
+            "dest": "/public/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/api/index.php"
+        }
+    ],
+    "outputDirectory": "public",
+    "env": {
+        "APP_ENV": "production",
+        "APP_DEBUG": "true",
+        "APP_URL": "https://start-deploy-laravel.vercel.app/",
+        "APP_KEY": "base64:mhyMGpPY1FdjI3uEz5LTaY99Wbm59uNittbc4iqJ0jw=",
+        "DB_CONNECTION": "mysql",
+        "DB_HOST": "sql101.infinityfree.com",
+        "DB_PORT": "3306",
+        "DB_DATABASE": "ifo_38851041_restapi",
+        "DB_USERNAME": "ifo_38851041",
+        "DB_PASSWORD": "bfpDNF98RBT",
+        "APP_CONFIG_CACHE": "/tmp/config.php",
+        "APP_EVENTS_CACHE": "/tmp/events.php",
+        "APP_PACKAGES_CACHE": "/tmp/packages.php",
+        "APP_ROUTES_CACHE": "/tmp/routes.php",
+        "APP_SERVICES_CACHE": "/tmp/services.php",
+        "VIEW_COMPILED_PATH": "/tmp",
+
+        "CACHE_DRIVER": "array",
+        "LOG_CHANNEL": "stderr",
+        "SESSION_DRIVER": "cookie"
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "api/index.php"
-    }
-  ],
-  "env": {
-    "APP_ENV": "production",
-    "APP_DEBUG": "false",
-    "APP_KEY": "base64:mhyMGpPY1FdjI3uEz5LTaY99Wbm59uNittbc4iqJ0jw=",
-    "DB_CONNECTION": "mysql",
-    "DB_HOST": "sql101.infinityfree.com",
-    "DB_PORT": "3306",
-    "DB_DATABASE": "ifo_38851041_restapi",
-    "DB_USERNAME": "ifo_38851041",
-    "DB_PASSWORD": "bfpDNF98RBT",
-    "CACHE_DRIVER": "file",
-    "SESSION_DRIVER": "file",
-    "QUEUE_DRIVER": "sync"
-  }
 }
